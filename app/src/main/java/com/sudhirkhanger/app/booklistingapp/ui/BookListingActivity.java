@@ -1,10 +1,12 @@
-package com.sudhirkhanger.app.booklistingapp;
+package com.sudhirkhanger.app.booklistingapp.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.sudhirkhanger.app.booklistingapp.R;
 
 public class BookListingActivity extends AppCompatActivity {
 
