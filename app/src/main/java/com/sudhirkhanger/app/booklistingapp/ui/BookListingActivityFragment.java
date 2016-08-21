@@ -17,13 +17,11 @@ import com.sudhirkhanger.app.booklistingapp.rest.GoogleBookAsyncTask;
 import com.sudhirkhanger.app.booklistingapp.utils.Utility;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class BookListingActivityFragment extends Fragment
-{
+public class BookListingActivityFragment extends Fragment {
 //        implements AsyncResponse {
 
     private ArrayList<Book> mBookArrayList;
@@ -43,12 +41,12 @@ public class BookListingActivityFragment extends Fragment
         mBookArrayList = new ArrayList<>();
 
         if (mUtility.isNetworkAvailable(rootView.getContext())) {
-            try {
-                mBookArrayList = new GoogleBookAsyncTask().execute("https://www.googleapis.com/books/v1/volumes?q=jhjghfgfdfdssgjgjgj&maxResults=5").get();
-            } catch (ExecutionException | InterruptedException e) {
-                Log.d(LOG_TAG, e.toString());
-            }
-//            mGoogleBookAsyncTask.execute();
+//            try {
+//                mBookArrayList = new GoogleBookAsyncTask().execute("https://www.googleapis.com/books/v1/volumes?q=jhjghfgfdfdssgjgjgj&maxResults=5").get();
+//            } catch (ExecutionException | InterruptedException e) {
+//                Log.d(LOG_TAG, e.toString());
+//            }
+            mGoogleBookAsyncTask.execute("https://www.googleapis.com/books/v1/volumes?q=android&maxResults=5");
 
         } else {
             Log.d(LOG_TAG, "network not found");
@@ -66,11 +64,11 @@ public class BookListingActivityFragment extends Fragment
         return rootView;
     }
 
-    public GoogleBookAsyncTask mGoogleBookAsyncTask = new GoogleBookAsyncTask(new AsyncResponse() {
+    GoogleBookAsyncTask mGoogleBookAsyncTask = new GoogleBookAsyncTask(new AsyncResponse() {
         @Override
         public void processFinish(ArrayList<Book> bookArrayList) {
             mBookArrayAdapter.clear();
-            mBookArrayAdapter = new BookAdapter(getContext(), bookArrayList);
+            mBookArrayAdapter.addAll(bookArrayList);
             mBookArrayAdapter.notifyDataSetChanged();
         }
     });
