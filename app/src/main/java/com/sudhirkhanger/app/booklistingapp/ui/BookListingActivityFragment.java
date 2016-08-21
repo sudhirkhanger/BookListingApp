@@ -21,13 +21,15 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class BookListingActivityFragment extends Fragment {
-//        implements AsyncResponse {
+public class BookListingActivityFragment extends Fragment implements AsyncResponse {
+
+    public static final String GOOGLE_BOOKS_API_SEARCH_QUERY = "https://www.googleapis.com/books/v1/volumes?q=android&maxResults=5";
 
     private ArrayList<Book> mBookArrayList;
     private ArrayAdapter<Book> mBookArrayAdapter;
     private Utility mUtility;
     private final static String LOG_TAG = BookListingActivityFragment.class.getSimpleName();
+    private GoogleBookAsyncTask mGoogleBookAsyncTask;
 
     public BookListingActivityFragment() {
     }
@@ -41,13 +43,8 @@ public class BookListingActivityFragment extends Fragment {
         mBookArrayList = new ArrayList<>();
 
         if (mUtility.isNetworkAvailable(rootView.getContext())) {
-//            try {
-//                mBookArrayList = new GoogleBookAsyncTask().execute("https://www.googleapis.com/books/v1/volumes?q=jhjghfgfdfdssgjgjgj&maxResults=5").get();
-//            } catch (ExecutionException | InterruptedException e) {
-//                Log.d(LOG_TAG, e.toString());
-//            }
-            mGoogleBookAsyncTask.execute("https://www.googleapis.com/books/v1/volumes?q=android&maxResults=5");
-
+            mGoogleBookAsyncTask = new GoogleBookAsyncTask(this);
+            mGoogleBookAsyncTask.execute(GOOGLE_BOOKS_API_SEARCH_QUERY);
         } else {
             Log.d(LOG_TAG, "network not found");
         }
@@ -64,13 +61,11 @@ public class BookListingActivityFragment extends Fragment {
         return rootView;
     }
 
-    GoogleBookAsyncTask mGoogleBookAsyncTask = new GoogleBookAsyncTask(new AsyncResponse() {
-        @Override
-        public void processFinish(ArrayList<Book> bookArrayList) {
-            mBookArrayAdapter.clear();
-            mBookArrayAdapter.addAll(bookArrayList);
-            mBookArrayAdapter.notifyDataSetChanged();
-        }
-    });
+    @Override
+    public void processFinish(ArrayList<Book> bookArrayList) {
+        mBookArrayAdapter.clear();
+        mBookArrayAdapter.addAll(bookArrayList);
+        mBookArrayAdapter.notifyDataSetChanged();
+    }
 }
 
