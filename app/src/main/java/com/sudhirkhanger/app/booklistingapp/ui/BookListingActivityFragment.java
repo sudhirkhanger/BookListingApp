@@ -1,6 +1,7 @@
 package com.sudhirkhanger.app.booklistingapp.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,6 +99,19 @@ public class BookListingActivityFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            Log.d(LOG_TAG, "onViewStateRestored");
+            mBookArrayList = savedInstanceState.getParcelableArrayList(BOOK_LIST);
+            mBookArrayAdapter.clear();
+            mBookArrayAdapter.addAll(mBookArrayList);
+            mListView.setAdapter(mBookArrayAdapter);
+        }
+    }
+
     private void initView(View view) {
         mListView = (ListView) view.findViewById(R.id.listview);
         mEditText = (EditText) view.findViewById(R.id.search_box);
@@ -118,6 +132,18 @@ public class BookListingActivityFragment extends Fragment {
 
     private void showToast(View view, String msg) {
         Toast.makeText(view.getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private static final String BOOK_LIST = "list_of_books";
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putParcelableArrayList(BOOK_LIST, mBookArrayList);
+        Log.d(LOG_TAG, "onSaveInstanceState");
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 }
 
