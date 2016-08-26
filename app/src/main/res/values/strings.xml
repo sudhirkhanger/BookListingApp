@@ -3,7 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="nothing_entered">Nothing entered</string>
     <string name="search">Search</string>
-    <string name="search_item_not_found">Search item not found</string>
-    <string name="enter_search_query">Please enter a search query</string>
+    <string name="search_item_not_found">Search item not found. Try another query.</string>
+    <string name="enter_search_query">Please enter a search query.</string>
     <string name="no_author">No author</string>
+    <string name="network_not_found">Network not found. Please connect your device to internet.</string>
 </resources>

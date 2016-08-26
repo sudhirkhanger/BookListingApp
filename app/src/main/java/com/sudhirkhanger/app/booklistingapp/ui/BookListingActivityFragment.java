@@ -66,6 +66,8 @@ public class BookListingActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                mEditText.clearFocus();
+
                 String searchQuery = mEditText.getText().toString().replaceAll(" ", "+");
 
                 if (searchQuery != null && !searchQuery.equals("")) {
@@ -90,6 +92,7 @@ public class BookListingActivityFragment extends Fragment {
                         mGoogleBookAsyncTask.execute(searchString);
                     } else {
                         Log.d(LOG_TAG, "network not found");
+                        setEmptyView(rootView, rootView.getResources().getString(R.string.network_not_found));
                     }
                 } else {
                     showToast(rootView,
