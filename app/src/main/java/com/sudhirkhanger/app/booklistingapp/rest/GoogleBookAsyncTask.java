@@ -107,10 +107,7 @@ public class GoogleBookAsyncTask extends AsyncTask<String, Void, ArrayList<Book>
 
         try {
             JSONObject bookJsonObject = new JSONObject(bookJsonStr);
-            String totalItems = bookJsonObject.getString(TOTAL_ITEMS);
-
-            if (Integer.valueOf(totalItems) > 0) {
-                Log.d(LOG_TAG, "totalItems: " + totalItems);
+            if (!bookJsonObject.isNull(ITEMS)) {
 
                 JSONArray bookJsonArray = bookJsonObject.getJSONArray(ITEMS);
 
