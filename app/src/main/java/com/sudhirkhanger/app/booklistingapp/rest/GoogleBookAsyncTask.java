@@ -110,7 +110,7 @@ public class GoogleBookAsyncTask extends AsyncTask<String, Void, ArrayList<Book>
             String totalItems = bookJsonObject.getString(TOTAL_ITEMS);
 
             if (Integer.valueOf(totalItems) > 0) {
-                Log.d(LOG_TAG, totalItems);
+                Log.d(LOG_TAG, "totalItems: " + totalItems);
 
                 JSONArray bookJsonArray = bookJsonObject.getJSONArray(ITEMS);
 
@@ -121,21 +121,21 @@ public class GoogleBookAsyncTask extends AsyncTask<String, Void, ArrayList<Book>
 
                     String title = volumeInfoObject.getString(TITLE);
 
-                    JSONArray authorsArray = volumeInfoObject.getJSONArray(AUTHORS);
+                    String[] authors = new String[]{"No Authors"};
 
-                    String[] authors = new String[authorsArray.length()];
-
-                    for (int j = 0; j < authorsArray.length(); j++) {
-                        authors[j] = authorsArray.getString(j);
+                    if (!volumeInfoObject.isNull(AUTHORS)) {
+                        JSONArray authorsArray = volumeInfoObject.getJSONArray(AUTHORS);
+                        Log.d(LOG_TAG, "authors #" + authorsArray.length());
+                        authors = new String[authorsArray.length()];
+                        for (int j = 0; j < authorsArray.length(); j++) {
+                            authors[j] = authorsArray.getString(j);
+                        }
                     }
-
                     bookArrayList.add(new Book(title, authors));
                 }
-
             } else {
                 bookArrayList = null;
             }
-
         } catch (JSONException e) {
             Log.d(LOG_TAG, e.toString());
         }
