@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class BookListingActivityFragment extends Fragment {
 
     private final static String LOG_TAG = BookListingActivityFragment.class.getSimpleName();
+    private static final String BOOK_LIST = "list_of_books";
 
     private ArrayList<Book> mBookArrayList;
     private ArrayAdapter<Book> mBookArrayAdapter;
@@ -81,7 +82,7 @@ public class BookListingActivityFragment extends Fragment {
                                     mBookArrayAdapter.notifyDataSetChanged();
                                 } else {
                                     Log.d(LOG_TAG, "bookArrayList is null");
-                                    showToast(rootView,
+                                    setEmptyView(rootView,
                                             rootView.getResources().getString(R.string.search_item_not_found));
                                 }
                             }
@@ -133,8 +134,6 @@ public class BookListingActivityFragment extends Fragment {
     private void showToast(View view, String msg) {
         Toast.makeText(view.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
-
-    private static final String BOOK_LIST = "list_of_books";
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
