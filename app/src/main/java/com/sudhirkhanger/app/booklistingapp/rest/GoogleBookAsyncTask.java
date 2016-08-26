@@ -21,7 +21,6 @@ public class GoogleBookAsyncTask extends AsyncTask<String, Void, ArrayList<Book>
 
     private final static String LOG_TAG = GoogleBookAsyncTask.class.getSimpleName();
 
-    private static final String TOTAL_ITEMS = "totalItems";
     private static final String ITEMS = "items";
     private static final String VOLUME_INFO = "volumeInfo";
     private static final String TITLE = "title";

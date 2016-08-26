@@ -26,7 +26,6 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 public class BookListingActivityFragment extends Fragment {
-//public class BookListingActivityFragment extends Fragment implements AsyncResponse {
 
     private final static String LOG_TAG = BookListingActivityFragment.class.getSimpleName();
 
@@ -65,13 +64,11 @@ public class BookListingActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                final String searchQuery = mEditText.getText().toString();
+                String searchQuery = mEditText.getText().toString().replaceAll(" ", "+");
 
                 if (searchQuery != null && !searchQuery.equals("")) {
 
                     String searchString = GOOGLE_BOOKS_API_BASE_QUERY + searchQuery;
-
-                    Log.d(LOG_TAG, searchString);
 
                     if (Utility.isNetworkAvailable(rootView.getContext())) {
                         mGoogleBookAsyncTask = new GoogleBookAsyncTask(new AsyncResponse() {
