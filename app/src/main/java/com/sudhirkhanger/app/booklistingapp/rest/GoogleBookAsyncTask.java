@@ -127,6 +127,12 @@ public class GoogleBookAsyncTask extends AsyncTask<String, Void, ArrayList<Book>
                             authors[j] = authorsArray.getString(j);
                         }
                     }
+
+                    // Json parsing for image
+                    JSONObject imageLinks = volumeInfoObject.getJSONObject("imageLinks");
+                    String thumbnail = imageLinks.getString("thumbnail");
+                    Log.e(LOG_TAG, "jsonConvertor: " + thumbnail);
+
                     bookArrayList.add(new Book(title, authors));
                 }
             } else {
